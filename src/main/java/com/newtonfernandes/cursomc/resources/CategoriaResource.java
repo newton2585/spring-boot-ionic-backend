@@ -3,6 +3,8 @@ package com.newtonfernandes.cursomc.resources;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -43,14 +45,16 @@ public class CategoriaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> insert(@RequestBody Categoria obj){
+	public ResponseEntity<Categoria> insert(@Valid @RequestBody CategoriaDTO objDto){
+		Categoria obj = categoriaService.fromDTO(objDto);
 		obj = categoriaService.insert(obj);
 		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Categoria> update(@RequestBody Categoria obj,
+	public ResponseEntity<Categoria> update(@Valid @RequestBody CategoriaDTO objDto,
 			@PathVariable Integer id){
+		Categoria obj = categoriaService.fromDTO(objDto);
 		obj.setId(id);
 		obj = categoriaService.update(obj);
 		return ResponseEntity.status(HttpStatus.OK).body(obj);
