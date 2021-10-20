@@ -1,6 +1,7 @@
 package com.newtonfernandes.cursomc.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newtonfernandes.cursomc.domain.Categoria;
+import com.newtonfernandes.cursomc.dto.CategoriaDTO;
 import com.newtonfernandes.cursomc.services.CategoriaService;
 
 @RestController
@@ -25,8 +27,11 @@ public class CategoriaResource {
 	private CategoriaService categoriaService;
 		
 	@GetMapping()
-	public List<Categoria> findAll() {
-		return categoriaService.findAll();
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = categoriaService.findAll();
+		List<CategoriaDTO> listDto = list.stream()
+				.map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping("/{id}")
