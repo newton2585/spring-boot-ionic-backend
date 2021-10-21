@@ -2,6 +2,7 @@ package com.newtonfernandes.cursomc.services.validation.utils;
 
 public class BR {
 
+	//https://gist.githubusercontent.com/adrianoluis/5043397d378ae506d87366abb0ab4e30/raw/90e86b787c9b6e7c36b4afb2677c57dc73065aed/DocumentUtil.java
 	// CPF
 	private static final int[] WEIGHT_SSN = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
