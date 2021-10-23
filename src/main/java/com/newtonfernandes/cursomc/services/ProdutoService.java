@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.newtonfernandes.cursomc.domain.Categoria;
+import com.newtonfernandes.cursomc.domain.ItemPedido;
 import com.newtonfernandes.cursomc.domain.Produto;
 import com.newtonfernandes.cursomc.repositories.CategoriaRepository;
 import com.newtonfernandes.cursomc.repositories.ProdutoRepository;
@@ -24,7 +25,7 @@ public class ProdutoService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 		
-	public Produto buscar(Integer id) {
+	public Produto find(Integer id) {
 		Optional<Produto> obj = produtoRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
@@ -37,4 +38,5 @@ public class ProdutoService {
 		return produtoRepository.search(nome, categorias, pageRequest);
 //		return produtoRepository.findDistintByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
 	}
+
 }
