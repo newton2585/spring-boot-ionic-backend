@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.newtonfernandes.cursomc.domain.Categoria;
-import com.newtonfernandes.cursomc.domain.ItemPedido;
 import com.newtonfernandes.cursomc.domain.Produto;
 import com.newtonfernandes.cursomc.repositories.CategoriaRepository;
 import com.newtonfernandes.cursomc.repositories.ProdutoRepository;
