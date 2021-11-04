@@ -23,8 +23,8 @@ public abstract class AbstractEmailService implements EmailService{
 	@Autowired
 	private TemplateEngine templateEngine;
 	
-	@Autowired
-	private JavaMailSender javaMailSender;
+	//@Autowired
+	//private JavaMailSender javaMailSender;
 	
 	@Override
 	public void sendOrderConfirmationEmail(Pedido obj) {
@@ -47,7 +47,7 @@ public abstract class AbstractEmailService implements EmailService{
 		context.setVariable("pedido", obj);
 		return templateEngine.process("email/confirmacaoPedido", context);
 	}
-	
+	/*
 	@Override
 	public void sendOrderConfirmationHtmlEmail(Pedido obj) {
 		MimeMessage mm;
@@ -69,4 +69,5 @@ public abstract class AbstractEmailService implements EmailService{
 		mmh.setText(htmlFromTemplatePedido(obj), true);
 		return mimeMessage;
 	}
+*/
 }
