@@ -15,12 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.newtonfernandes.cursomc.domain.Cidade;
 import com.newtonfernandes.cursomc.domain.Cliente;
 import com.newtonfernandes.cursomc.domain.Endereco;
+import com.newtonfernandes.cursomc.domain.enums.Perfil;
 import com.newtonfernandes.cursomc.domain.enums.TipoCliente;
 import com.newtonfernandes.cursomc.dto.ClienteDTO;
 import com.newtonfernandes.cursomc.dto.ClienteNewDTO;
 import com.newtonfernandes.cursomc.repositories.CidadeRepository;
 import com.newtonfernandes.cursomc.repositories.ClienteRepository;
 import com.newtonfernandes.cursomc.repositories.EnderecoRepository;
+import com.newtonfernandes.cursomc.security.UserSpringSecurity;
+import com.newtonfernandes.cursomc.services.exceptions.AuthorizationException;
 import com.newtonfernandes.cursomc.services.exceptions.DataIntegrityException;
 import com.newtonfernandes.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -44,6 +47,12 @@ public class ClienteService {
 	}
 		
 	public Cliente find(Integer id) {
+		
+		UserSpringSecurity user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
